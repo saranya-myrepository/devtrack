@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>All Issues</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<div class="header">
+DevTracker
+</div>
+
+<div class="container">
+
+<div class="card">
+
+<h2>All Tickets</h2>
+
+<table border="1" width="100%" cellpadding="10">
+
+<tr>
+<th>ID</th>
+<th>Title</th>
+<th>Priority</th>
+<th>Status</th>
+<th>Created By</th>
+<th>View</th>
+</tr>
+
+{% for ticket in tickets %}
+
+<tr>
+
+<td>{{ ticket.id }}</td>
+<td>{{ ticket.title }}</td>
+<td>{{ ticket.priority }}</td>
+<td>{{ ticket.status }}</td>
+<td>{{ ticket.created_by }}</td>
+
+<td>
+<a href="/ticket/{{ ticket.id }}">View</a>
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+<br>
+
+<button onclick="window.location.href='/dashboard'" class="secondary-btn">
+Back
+</button>
+
+</div>
+
+</div>
+
+</body>
+</html>

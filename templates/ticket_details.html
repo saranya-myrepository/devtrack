@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Ticket Details</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<div class="header">
+DevTracker
+</div>
+
+<div class="container">
+
+<div class="card ticket-details">
+
+<h2>Ticket #{{ ticket.id }}</h2>
+
+<div class="ticket-info">
+
+<p><b>Title:</b> {{ ticket.title }}</p>
+
+<p><b>Description:</b></p>
+<p class="ticket-desc">{{ ticket.description }}</p>
+
+<p>
+<b>Priority:</b>
+<span class="priority {{ ticket.priority }}">
+{{ ticket.priority }}
+</span>
+</p>
+
+<p>
+<b>Status:</b>
+<span class="status {{ ticket.status }}">
+{{ ticket.status }}
+</span>
+</p>
+
+<p>
+<b>Assigned To:</b>
+
+{% if ticket.assigned_to %}
+{{ ticket.assigned_to }}
+{% else %}
+None
+{% endif %}
+
+</p>
+
+</div>
+
+
+<!-- ============================= -->
+<!-- Developer Status Update -->
+<!-- ============================= -->
+
+{% if role == "developer" %}
+
+<div class="update-box">
+
+<h3>Update Status</h3>
+
+<form method="POST" action="/update_issue_status">
+
+<input type="hidden" name="ticket_id" value="{{ ticket.id }}">
+
+<label>Status</label>
+
+<select name="status">
+
+<option value="open"
+{% if ticket.status == "open" %}selected{% endif %}>
+Open
+</option>
+
+<option value="in_progress"
+{% if ticket.status == "in_progress" %}selected{% endif %}>
+In Progress
+</option>
+
+<option value="resolved"
+{% if ticket.status == "resolved" %}selected{% endif %}>
+Resolved
+</option>
+
+<option value="closed"
+{% if ticket.status == "closed" %}selected{% endif %}>
+Closed
+</option>
+
+</select>
+
+<br><br>
+
+<button type="submit" class="primary-btn">
+Update Status
+</button>
+
+</form>
+
+</div>
+
+{% endif %}
+
+
+<!-- ============================= -->
+<!-- Admin Assign Developer -->
+<!-- ============================= -->
+
+{% if role == "admin" %}
+
+<div class="update-box">
+
+<h3>Assign Developer</h3>
+
+<form method="POST" action="/assign_ticket">
+
+<input type="hidden" name="ticket_id" value="{{ ticket.id }}">
+
+<label>Select Developer</label>
+
+<select name="developer_id" required>
+
+<option value="">Select Developer</option>
+
+{% for dev in developers %}
+
+<option value="{{ dev.id }}">
+{{ dev.email }}
+</option>
+
+{% endfor %}
+
+</select>
+
+<br><br>
+
+<button type="submit" class="primary-btn">
+Assign Developer
+</button>
+
+</form>
+
+</div>
+
+{% endif %}
+
+
+<!-- ============================= -->
+<!-- Back Button -->
+<!-- ============================= -->
+
+<div class="action-area">
+
+<button onclick="window.location.href='/dashboard'"
+class="secondary-btn">
+
+Back to Dashboard
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+</html>

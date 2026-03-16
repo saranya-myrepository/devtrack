@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Manage Users</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<div class="header">
+DevTracker
+</div>
+
+<div class="container">
+
+<div class="card">
+
+<h2>Manage Users</h2>
+
+<table border="1" width="100%" cellpadding="10">
+
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Email</th>
+<th>Role</th>
+</tr>
+
+{% for user in users %}
+
+<tr>
+<td>{{ user.id }}</td>
+<td>{{ user.name }}</td>
+<td>{{ user.email }}</td>
+<td>{{ user.role }}</td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+<br>
+
+<button onclick="window.location.href='/dashboard'" class="secondary-btn">
+Back to Dashboard
+</button>
+
+</div>
+
+</div>
+
+</body>
+</html>

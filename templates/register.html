@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DevTracker - Register</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<div class="header">
+    DevTracker
+</div>
+
+<div class="container">
+    <div class="card">
+        <h2>Create Account</h2>
+
+        <form method="POST" action="/register">
+            <input type="text" name="name" placeholder="Full Name" required>
+
+            <input type="email" name="email" placeholder="Email Address" required>
+
+            <input type="password" name="password" placeholder="Password" required>
+
+            <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+
+            <button type="submit">Register</button>
+
+            <button type="button" class="secondary-btn" onclick="window.location.href='/login'">
+                Login
+            </button>
+
+        </form>
+    </div>
+</div>
+
+<div class="footer">
+    DevTracker | Internal Issue Management System
+</div>
+
+
+<script>
+function logout(){
+    localStorage.removeItem("token");
+    window.location.href = "/login";
+}
+</script>
+
+</body>
+</html>

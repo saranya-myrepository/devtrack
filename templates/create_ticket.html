@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Create Ticket</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="header">
+DevTracker - Create Ticket
+</div>
+
+
+<div class="container">
+
+<div class="card">
+
+<h2>Create New Ticket</h2>
+
+
+<form id="ticketForm" onsubmit="createTicket(event)">
+
+<input
+type="text"
+id="title"
+placeholder="Ticket Title"
+required
+>
+
+
+<textarea
+id="description"
+placeholder="Describe the issue..."
+required
+></textarea>
+
+
+<label>Priority</label>
+
+<select id="priority">
+
+<option value="low">Low</option>
+<option value="medium">Medium</option>
+<option value="high">High</option>
+<option value="critical">Critical</option>
+
+</select>
+
+
+<button type="submit">
+Create Ticket
+</button>
+
+
+<button
+type="button"
+class="secondary-btn"
+onclick="window.location.href='/dashboard'"
+>
+Back
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+
+<script src="{{ url_for('static', filename='js/tickets.js') }}"></script>
+
+
+</body>
+</html> 

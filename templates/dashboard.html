@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>DevTracker Dashboard</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+
+<!-- TOP NAVBAR -->
+
+<div class="topbar">
+
+<div class="logo">DevTracker</div>
+
+<div class="user-info">
+
+<span class="welcome-text">
+Welcome {{ user_name }} ({{ role }})
+</span>
+
+<button class="logout-btn" onclick="window.location.href='/logout'">
+Logout
+</button>
+
+</div>
+
+</div>
+
+
+
+<div class="main-layout">
+
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+{% if role == "client" %}
+<a href="/create_ticket">Create Issue</a>
+<a href="/view_my_issues">My Issues</a>
+{% endif %}
+
+{% if role == "developer" %}
+<a href="/assigned_issues">Assigned Issues</a>
+{% endif %}
+
+{% if role == "admin" %}
+<a href="/all_issues">All Issues</a>
+<a href="/manage_users">Manage Users</a>
+{% endif %}
+
+</div>
+
+
+
+<!-- MAIN CONTENT -->
+
+<div class="content">
+
+<h2>Dashboard</h2>
+
+
+
+<!-- CLIENT DASHBOARD -->
+
+{% if role == "client" %}
+
+<div class="stats-container">
+
+<div class="stat-card">
+<h3>Total Tickets</h3>
+<p>{{ total_tickets }}</p>
+</div>
+
+<div class="stat-card">
+<h3>Open Tickets</h3>
+<p>{{ open_tickets }}</p>
+</div>
+
+<div class="stat-card">
+<h3>In Progress</h3>
+<p>{{ in_progress_tickets }}</p>
+</div>
+
+<div class="stat-card">
+<h3>Resolved</h3>
+<p>{{ resolved_tickets }}</p>
+</div>
+
+</div>
+
+{% endif %}
+
+
+
+<!-- DEVELOPER DASHBOARD -->
+
+{% if role == "developer" %}
+
+<div class="stats-container">
+
+<div class="stat-card">
+<h3>Assigned Tickets</h3>
+<p>{{ assigned_tickets }}</p>
+</div>
+
+<div class="stat-card">
+<h3>In Progress</h3>
+<p>{{ progress_tickets }}</p>
+</div>
+
+<div class="stat-card">
+<h3>Resolved</h3>
+<p>{{ resolved_tickets }}</p>
+</div>
+
+</div>
+
+{% endif %}
+
+
+
+<!-- ADMIN DASHBOARD -->
+
+{% if role == "admin" %}
+
+<div class="stats-container">
+
+<div class="stat-card">
+<h3>Total Tickets</h3>
+<p>{{ total_tickets }}</p>
+</div>
+
+<div class="stat-card">
+<h3>Solved Tickets</h3>
+<p>{{ solved_tickets }}</p>
+</div>
+
+<div class="stat-card">
+<h3>Assigned Tickets</h3>
+<p>{{ assigned_tickets }}</p>
+</div>
+
+</div>
+
+
+
+<!-- HIDDEN CHART DATA -->
+
+<div id="chartData"
+
+data-total="{{ total_tickets }}"
+data-solved="{{ solved_tickets }}"
+data-assigned="{{ assigned_tickets }}"
+data-open="{{ open_count }}"
+data-progress="{{ progress_count }}"
+data-solvedstatus="{{ solved_count }}">
+
+</div>
+
+
+
+<!-- ADMIN CHARTS -->
+
+<div class="admin-charts">
+
+<div class="chart-container">
+
+<h3>Ticket Analytics</h3>
+
+<canvas id="ticketAnalytics"></canvas>
+
+</div>
+
+
+<div class="chart-container">
+
+<h3>Ticket Status</h3>
+
+<canvas id="ticketStatus"></canvas>
+
+</div>
+
+</div>
+
+{% endif %}
+
+</div>
+
+</div>
+
+
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+
+</body>
+
+</html>
